@@ -2,6 +2,10 @@ html
 {
     font-size: 16px;
 }
+body {
+    margin-bottom: 60px;
+    background-color: #f8f9fa;
+}
 
 @media (min-width: 768px) 
 {
@@ -38,9 +42,9 @@ html
     min-height: 100%;
     }
 
-body 
-{
+body {
     margin-bottom: 60px;
+    background-color: #f8f9fa;
 }
 
 .form-floating > .form-control-plaintext::placeholder,

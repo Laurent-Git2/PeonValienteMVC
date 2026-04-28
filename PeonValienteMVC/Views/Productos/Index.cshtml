@@ -61,12 +61,43 @@
                         <td>@Html.DisplayFor(modelItem => item.Precio)</td>
                         <td>@Html.DisplayFor(modelItem => item.Stock)</td>
                         <td>@Html.DisplayFor(modelItem => item.Escaparate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Imagen)</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Imagen))
+                            {
+                                <img src="~/imagenes/@item.Imagen"
+                                     width="80"
+                                     height="80"
+                                     style="object-fit:cover;" />
+                            }
+                            else
+                            {
+                                <img src="~/imagenes/
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.Imagen))
+                                {
+                                    <img src="~/imagenes/@item.Imagen"
+                                         width="80"
+                                         height="80"
+                                         style="object-fit:cover;" />
+                                }
+                                else
+                                {
+                                    <img src="~/imagenes/Sin.png"
+                                         width="80"
+                                         height="80"
+                                         style="object-fit:cover;" />
+                                }
+                            </td>"
+                                     width="80"
+                                     height="80" />
+                            }
+                        </td>
                         <td>@Html.DisplayFor(modelItem => item.Categoria.Descripcion)</td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
                             <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a> |
+                            <a asp-action="CambiarImagen" asp-route-id="@item.Id">Cambiar Img</a>
                         </td>
                     </tr>
                 }

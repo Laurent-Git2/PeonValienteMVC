@@ -97,6 +97,13 @@ body {
         background-color: #111 !important;
         color: #C9A14A !important;
     }
+
+.btn-volver:hover {
+    background-color: #111 !important;
+    color: #C9A14A !important;
+    font-weight: bold;
+}
+
 @media (max-width: 991px) {
     .navbar-collapse {
         background-color: #111;

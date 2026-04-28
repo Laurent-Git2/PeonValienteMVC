@@ -1,0 +1,55 @@
+﻿@model PeonValienteMVC.Models.Producto
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Agregar al carrito</h2>
+
+    <div class="card shadow p-4">
+
+        <!-- IMAGE GRANDE -->
+        <div class="text-center mb-4">
+            @if (!string.IsNullOrEmpty(Model.Imagen))
+            {
+                <img src="~/imagenes/@Model.Imagen"
+                     class="img-fluid rounded"
+                     style="max-height:350px; object-fit:contain;" />
+            }
+            else
+            {
+                <img src="~/imagenes/sinImagen.png"
+                     class="img-fluid rounded"
+                     style="max-height:350px;" />
+            }
+        </div>
+
+        <!-- INFOS -->
+        <div class="row">
+
+            <div class="col-md-8">
+                <p><strong>Descripción:</strong> @Model.Descripcion</p>
+                <p><strong>Precio:</strong> @Model.Precio €</p>
+                <p><strong>Stock:</strong> @Model.Stock</p>
+                <p><strong>Categoría:</strong> @Model.Categoria?.Descripcion</p>
+            </div>
+
+        </div>
+
+        <!-- BOUTONS -->
+        <div class="mt-4 d-flex gap-3">
+
+            <form asp-action="AgregarCarritoPost" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+
+                <button type="submit" class="btn btn-success" style="background-color:#C9A14A">
+                    Confirmar
+                </button>
+            </form>
+
+            <a asp-action="Index" class="btn btn-dark">
+                Volver
+            </a>
+
+        </div>
+
+    </div>
+</div>

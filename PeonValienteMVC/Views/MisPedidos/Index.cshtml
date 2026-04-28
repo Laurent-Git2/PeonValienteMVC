@@ -1,0 +1,58 @@
+﻿@model IEnumerable<PeonValienteMVC.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Mis Pedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<table class="table">
+    <thead>
+       
+        <tr>
+            <th>Pedido</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Productos</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            int cantidadProductos = 0;
+            decimal total = 0;
+
+            if (item.Detalles != null)
+            {
+                cantidadProductos = item.Detalles.Sum(d => d.Cantidad);
+                total = item.Detalles.Sum(d => d.Cantidad * d.Precio);
+            }
+
+            <tr>
+                <td>#@item.Id</td>
+                <td>@item.Fecha.ToShortDateString()</td>
+                <td>@item.Estado?.Descripcion</td>
+                <td>@cantidadProductos</td>
+                <td>@total €</td>
+                <td>
+                    <a asp-action="Detalles"
+                       asp-route-id="@item.Id">
+                        Detalles
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<a class="btn text-white mt-3"
+   style="background-color:#C9A14A;"
+   asp-controller="Escaparate"
+   asp-action="Index">
+    Volver a la tienda
+</a>

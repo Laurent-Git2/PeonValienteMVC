@@ -1,0 +1,72 @@
+﻿@model PeonValienteMVC.Models.Pedido
+
+@{
+    ViewData["Title"] = "Crear Pedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Pedido</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Confirmado" class="control-label"></label>
+                <input asp-for="Confirmado" class="form-control" />
+                <span asp-validation-for="Confirmado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Preparado" class="control-label"></label>
+                <input asp-for="Preparado" class="form-control" />
+                <span asp-validation-for="Preparado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Enviado" class="control-label"></label>
+                <input asp-for="Enviado" class="form-control" />
+                <span asp-validation-for="Enviado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cobrado" class="control-label"></label>
+                <input asp-for="Cobrado" class="form-control" />
+                <span asp-validation-for="Cobrado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Devuelto" class="control-label"></label>
+                <input asp-for="Devuelto" class="form-control" />
+                <span asp-validation-for="Devuelto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anulado" class="control-label"></label>
+                <input asp-for="Anulado" class="form-control" />
+                <span asp-validation-for="Anulado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <select asp-for="ClienteId" class ="form-control" asp-items="ViewBag.ClienteId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoId" class="control-label"></label>
+                <select asp-for="EstadoId" class ="form-control" asp-items="ViewBag.EstadoId"></select>
+            </div><br />
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div><br />
+
+<div>
+    <a asp-action="Index">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PeonValienteMVC.Models.Producto>
+
+@{
+    ViewData["Title"] = "Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Crear Nuevo</a>
+</p>
+
+<div class="row">
+
+    <!-- MENÚ IZQUIERDO -->
+    <div class="col-md-3">
+        <h4>Categorías</h4>
+
+        <a class="d-block mb-2"
+           asp-controller="Productos"
+           asp-action="Index"
+           asp-route-id="@null"
+           asp-route-page="1">
+            Todos
+        </a>
+
+        @foreach (var categoria in (IEnumerable<PeonValienteMVC.Models.Categoria>)ViewData["Categorias"])
+        {
+            <a class="d-block mb-2"
+               asp-controller="Productos"
+               asp-action="Index"
+               asp-route-id="@categoria.Id"
+               asp-route-page="1">
+                @categoria.Descripcion
+            </a>
+        }
+    </div>
+
+    <!-- CONTENIDO DERECHA -->
+    <div class="col-md-9">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                    <th>@Html.DisplayNameFor(model => model.Precio)</th>
+                    <th>@Html.DisplayNameFor(model => model.Stock)</th>
+                    <th>@Html.DisplayNameFor(model => model.Escaparate)</th>
+                    <th>@Html.DisplayNameFor(model => model.Imagen)</th>
+                    <th>@Html.DisplayNameFor(model => model.Categoria)</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Escaparate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Imagen)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Categoria.Descripcion)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- PAGINACIÓN -->
+        <div class="mt-3">
+
+            @if (ViewBag.Page > 1)
+            {
+                <a class="btn btn-outline-dark"
+                   asp-action="Index"
+                   asp-route-page="@(ViewBag.Page - 1)">
+                    Anterior
+                </a>
+            }
+
+            <span class="mx-3">
+                Página @ViewBag.Page de @ViewBag.TotalPages
+            </span>
+
+            @if (ViewBag.Page < ViewBag.TotalPages)
+            {
+                <a class="btn btn-outline-dark"
+                   asp-action="Index"
+                   asp-route-page="@(ViewBag.Page + 1)">
+                    Siguiente
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+

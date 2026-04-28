@@ -1,0 +1,99 @@
+﻿@model IEnumerable<PeonValienteMVC.Models.Producto>
+
+@{
+    ViewData["Title"] = "Escaparate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2>Bienvenido a Peón Valiente</h2>
+
+<div class="row">
+
+    <!-- MENU GAUCHE -->
+    <div class="col-md-3">
+        <h4>Categorías</h4>
+
+        <a class="d-block mb-2"
+           asp-controller="Escaparate"
+           asp-action="Index"
+           asp-route-id="@null"
+           asp-route-page="1">
+            Todos
+        </a>
+
+        @foreach (var categoria in (IEnumerable<PeonValienteMVC.Models.Categoria>)ViewData["Categorias"])
+        {
+            <a class="d-block mb-2"
+               asp-controller="Escaparate"
+               asp-action="Index"
+               asp-route-id="@categoria.Id"
+               asp-route-page="1">
+             
+                @categoria.Descripcion
+            </a>
+        }
+        <a class="btn text-white mt-3"
+            style="background-color:#C9A14A;"
+            asp-controller="Home"
+            asp-action="Index">
+            Volver al Inicio
+        </a>
+    </div>
+
+    <!-- PRODUITS DROITE -->
+      <div class="col-md-9">
+
+        <div class="row">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        @if (!string.IsNullOrEmpty(item.Imagen))
+                        {
+                            <img src="~/imagenes/@item.Imagen"
+                                 class="card-img-top p-3"
+                                 style="height:200px; width:100%; object-fit:contain;" />
+                        }
+                        else
+                        {
+                            <img src="~/imagenes/sinImagen.png"
+                                 class="card-img-top p-3"
+                                 style="height:200px; width:100%; object-fit:contain;" />
+                        }
+
+                        <div class="card-body">
+
+                            <h5 style="min-height:60px">@item.Descripcion</h5>
+
+                            <p><strong>@item.Precio €</strong></p>
+
+                            <p>Stock: @item.Stock</p>
+
+                            <p>@item.Categoria.Descripcion</p>
+
+                        </div>
+
+                        <div class="card-footer text-center bg-white border-0 pb-3">
+                            <a asp-controller="Escaparate"
+                               asp-action="AgregarCarrito"
+                               asp-route-id="@item.Id"
+                               class="btn w-100 text-white"
+                               style="background-color:#C9A14A;">
+                                Añadir al carrito
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>

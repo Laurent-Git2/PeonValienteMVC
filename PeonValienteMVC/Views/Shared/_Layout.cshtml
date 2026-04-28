@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PeonValienteMVC</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PeonValienteMVC.styles.css" asp-append-version="true" />
+    <link rel="icon" type="image/png" href="~/imagenes/LogoFondBlanc.png" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg shadow-sm py-2">
+
+            <div class="container">
+
+                <!-- Logo -->
+                <a class="navbar-brand"
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                    <img src="~/imagenes/LogoFondNoir.png"
+                         height="85"
+                         class="rounded" />
+                </a>
+
+                <!-- Burger -->
+                <button class="navbar-toggler border-0"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#menuPV">
+
+                    <span style="font-size:30px;">☰</span>
+                </button>
+
+                <!-- Menu -->
+                <div class="collapse navbar-collapse" id="menuPV">
+
+                    <ul class="navbar-nav mx-auto fw-bold gap-lg-3">
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-controller="Home"
+                               asp-action="Index">Inicio</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-controller="Home"
+                               asp-action="Privacy">Privacidad</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-controller="Escaparate"
+                               asp-action="Index">Escaparate</a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+
+                                <a class="nav-link dropdown-toggle text-dark"
+                                   href="#"
+                                   data-bs-toggle="dropdown">
+                                    Acceso Cliente
+                                </a>
+
+                                <ul class="dropdown-menu">
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="MisDatos"
+                                           asp-action="Edit">
+                                            Mis Datos
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Carrito"
+                                           asp-action="Index">
+                                            Mi Carrito
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="MisPedidos"
+                                           asp-action="Index">
+                                            Mis Pedidos
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <li class="nav-item dropdown">
+
+                                <a class="nav-link dropdown-toggle text-dark"
+                                   href="#"
+                                   data-bs-toggle="dropdown">
+                                    Admin
+                                </a>
+
+                                <ul class="dropdown-menu">
+
+                                    <li><a class="dropdown-item" asp-controller="Categorias" asp-action="Index">Categorias</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Productos" asp-action="Index">Productos</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Pedidos" asp-action="Index">Pedidos</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Estados" asp-action="Index">Estados</a></li>
+
+                                </ul>
+
+                            </li>
+                        }
+
+                    </ul>
+
+                    <div class="d-flex align-items-center">
+                        <partial name="_LoginPartial" />
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+
+        <main role="main" class="col-lg-12 pt-4 pb-4">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="text-center py-3 text-muted border-top">
+        <div class="container">
+            &copy; 2026 - PeonValienteMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

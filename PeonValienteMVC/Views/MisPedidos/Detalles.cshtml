@@ -1,0 +1,52 @@
+﻿@model PeonValienteMVC.Models.Pedido
+
+@{
+    ViewData["Title"] = "Detalles del Pedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Pedido #@Model.Id</h1>
+
+<p><strong>Fecha:</strong> @Model.Fecha.ToShortDateString()</p>
+
+<p><strong>Estado:</strong> @Model.Estado?.Descripcion</p>
+
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            decimal totalGeneral = 0;
+        }
+
+        @foreach (var item in Model.Detalles)
+        {
+            decimal totalLinea = item.Cantidad * item.Precio;
+            totalGeneral += totalLinea;
+
+            <tr>
+                <td>@item.Producto?.Descripcion</td>
+                <td>@item.Cantidad</td>
+                <td>@item.Precio €</td>
+                <td>@totalLinea €</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Total Pedido: @totalGeneral €</h4>
+
+<a asp-action="Index"
+   class="btn text-white"
+   style="background-color:#C9A14A; border:none;">
+    Volver
+</a>

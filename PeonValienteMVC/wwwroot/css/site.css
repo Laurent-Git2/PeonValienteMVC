@@ -134,9 +134,15 @@ body {
         background-color: #111 !important;
         color: #C9A14A !important;
     }
-
+.btn-volver {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #C9A14A;
+}
 .btn-volver:hover 
 {
+   
     background-color: #111 !important;
     color: #C9A14A !important;
     font-weight: bold;

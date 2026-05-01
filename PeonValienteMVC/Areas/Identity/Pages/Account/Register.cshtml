@@ -32,15 +32,15 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h3>Use another service to register.</h3>
+            <h3>Utiliza otro servicio para iniciar sesión.</h3>
             <hr />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
+                            No hay ningún servicio de autenticación externo configurado. Consulte este artículo <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                sobre cómo configurar esta aplicación ASP.NET para que admita el inicio de sesión a través de servicios externos.</a>
                         </p>
                     </div>
                 }
@@ -51,7 +51,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-volver" name="provider" value="@provider.Name" title="Inicia sesión con tu @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>

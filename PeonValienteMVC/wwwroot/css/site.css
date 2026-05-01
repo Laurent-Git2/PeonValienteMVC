@@ -136,7 +136,7 @@ body {
     }
 .btn-volver {
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 15px;
     color: white;
     background-color: #C9A14A;
 }
@@ -147,7 +147,28 @@ body {
     color: #C9A14A !important;
     font-weight: bold;
 }
+.nav-pills .nav-link {
+    color: #C9A14A !important;
+    background-color: transparent;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    transition: 0.3s;
+}
 
+    
+    .nav-pills .nav-link:hover {
+        background-color: #f5e7bf;
+        color: #111 !important;
+    }
+
+    /* item actif */
+    .nav-pills .nav-link.active,
+    .nav-pills .show > .nav-link {
+        background: linear-gradient(135deg,#C9A14A,#8B6B1F) !important;
+        color: white !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
 @media (max-width: 991px) 
 {
     .navbar-collapse

@@ -209,52 +209,37 @@ HostEnvironment)
         // POST: Productos/CambiarImagen/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CambiarImagen(int? id, IFormFile imagen)
+        public async Task<IActionResult> CambiarImagen(int? id, IFormFile fichero)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
+
             var producto = await _context.Productos.FindAsync(id);
+
             if (producto == null)
-            {
                 return NotFound();
-            }
-            if (imagen == null)
+
+            if (fichero != null)
             {
-                return View(producto);
-            }
-            if (ModelState.IsValid)
-            {
-                // Copiar archivo de imagen
-                string strRutaImagenes = Path.Combine(_webHostEnvironment.WebRootPath, "imagenes");
-                string strExtension = Path.GetExtension(imagen.FileName);
-                string strNombreFichero = producto.Id.ToString() + strExtension;
-                string strRutaFichero = Path.Combine(strRutaImagenes, strNombreFichero);
-                using (var fileStream = new FileStream(strRutaFichero, FileMode.Create))
+                string carpeta = Path.Combine(_webHostEnvironment.WebRootPath, "imagenes");
+
+                // garder nom original
+                string strNombreFichero = Path.GetFileName(fichero.FileName);
+
+                string ruta = Path.Combine(carpeta, strNombreFichero);
+
+                using (var stream = new FileStream(ruta, FileMode.Create))
                 {
-                    imagen.CopyTo(fileStream);
+                    await fichero.CopyToAsync(stream);
                 }
-                // Actualizar producto con nueva imagen
+
                 producto.Imagen = strNombreFichero;
-                try
-                {
-                    _context.Update(producto);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductoExists(producto.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+                _context.Update(producto);
+                await _context.SaveChangesAsync();
             }
-            return View(producto);
+
+            return RedirectToAction("CambiarImagen", new { id = producto.Id });
         }
     }
 }

@@ -40,16 +40,16 @@
     <!-- CONTENIDO DERECHA -->
     <div class="col-md-9">
 
-        <table class="table">
+        <table class="table table-striped align-middle">
             <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
                     <th>@Html.DisplayNameFor(model => model.Precio)</th>
                     <th>@Html.DisplayNameFor(model => model.Stock)</th>
                     <th>@Html.DisplayNameFor(model => model.Escaparate)</th>
-                    <th>@Html.DisplayNameFor(model => model.Imagen)</th>
+                    <th>Imagen</th>
                     <th>@Html.DisplayNameFor(model => model.Categoria)</th>
-                    <th></th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
 
@@ -57,42 +57,38 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Precio)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Stock)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Escaparate)</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Precio</td>
+                        <td>@item.Stock</td>
+                        <td class="text-center">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   @(item.Escaparate ? "checked" : "")
+                                   disabled />
+                        </td>
+
                         <td>
                             @if (!string.IsNullOrEmpty(item.Imagen))
                             {
                                 <img src="~/imagenes/@item.Imagen"
                                      width="80"
                                      height="80"
-                                     style="object-fit:cover;" />
+                                     style="object-fit:cover;"
+                                     class="img-thumbnail"
+                                     asp-append-version="true" />
                             }
                             else
                             {
-                                <img src="~/imagenes/
-                            <td>
-                                @if (!string.IsNullOrEmpty(item.Imagen))
-                                {
-                                    <img src="~/imagenes/@item.Imagen"
-                                         width="80"
-                                         height="80"
-                                         style="object-fit:cover;" />
-                                }
-                                else
-                                {
-                                    <img src="~/imagenes/Sin.png"
-                                         width="80"
-                                         height="80"
-                                         style="object-fit:cover;" />
-                                }
-                            </td>"
+                                <img src="~/imagenes/Sin.png"
                                      width="80"
-                                     height="80" />
+                                     height="80"
+                                     style="object-fit:cover;"
+                                     class="img-thumbnail" />
                             }
                         </td>
-                        <td>@Html.DisplayFor(modelItem => item.Categoria.Descripcion)</td>
+
+                        <td>@item.Categoria.Descripcion</td>
+
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
                             <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
@@ -136,7 +132,7 @@
 </div>
 
 <a class="btn btn-volver text-white mt-3"
-   style="background-color:#C9A14A;"
+  
    asp-controller="Home"
    asp-action="Index">
     Volver al Inicio

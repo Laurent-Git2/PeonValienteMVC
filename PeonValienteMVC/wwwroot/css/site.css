@@ -136,9 +136,10 @@ body {
     }
 .btn-volver {
     margin-bottom: 20px;
-    border-radius: 15px;
-    color: white;
-    background-color: #C9A14A;
+    border-radius: 10px;
+    background: linear-gradient(135deg,#C9A14A,#8B6B1F) !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 .btn-volver:hover 
 {

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeonValienteMVC.Data;
 
@@ -11,9 +12,11 @@ using PeonValienteMVC.Data;
 namespace PeonValienteMVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260806190343_CrearColecciones")]
+    partial class CrearColecciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,8 +365,9 @@ namespace PeonValienteMVC.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("ColeccionId")
-                        .HasColumnType("int");
+                    b.Property<string>("Coleccion")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(1000)
@@ -418,8 +422,6 @@ namespace PeonValienteMVC.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ColeccionId");
 
                     b.ToTable("Ideas");
                 });
@@ -572,16 +574,6 @@ namespace PeonValienteMVC.Data.Migrations
                     b.Navigation("Producto");
                 });
 
-            modelBuilder.Entity("PeonValienteMVC.Models.Idea", b =>
-                {
-                    b.HasOne("PeonValienteMVC.Models.Coleccion", "Coleccion")
-                        .WithMany("Ideas")
-                        .HasForeignKey("ColeccionId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Coleccion");
-                });
-
             modelBuilder.Entity("PeonValienteMVC.Models.Pedido", b =>
                 {
                     b.HasOne("PeonValienteMVC.Models.Cliente", "Cliente")
@@ -615,11 +607,6 @@ namespace PeonValienteMVC.Data.Migrations
             modelBuilder.Entity("PeonValienteMVC.Models.Cliente", b =>
                 {
                     b.Navigation("Pedidos");
-                });
-
-            modelBuilder.Entity("PeonValienteMVC.Models.Coleccion", b =>
-                {
-                    b.Navigation("Ideas");
                 });
 
             modelBuilder.Entity("PeonValienteMVC.Models.Estado", b =>

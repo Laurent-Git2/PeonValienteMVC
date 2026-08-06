@@ -18,6 +18,9 @@ namespace PeonValienteMVC.Data
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<DetallePedido> DetallesPedido { get; set; }
 
+        public DbSet<Coleccion> Colecciones { get; set; }
+        public DbSet<Idea> Ideas { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

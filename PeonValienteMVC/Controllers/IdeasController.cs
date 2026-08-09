@@ -38,7 +38,8 @@ namespace PeonValienteMVC.Controllers
             }
 
             var idea = await _context.Ideas
-                .FirstOrDefaultAsync(m => m.Id == id);
+     .Include(i => i.Coleccion)
+     .FirstOrDefaultAsync(m => m.Id == id);
             if (idea == null)
             {
                 return NotFound();
@@ -63,17 +64,26 @@ namespace PeonValienteMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Codigo,Titulo,FraseEspanol,FraseFrances,Descripcion,Coleccion,TipoProducto,Potencial,Estado,ImagenTerminada,ArchivoPodTerminado,MockupTerminado,PublicadoEtsy,PublicadoPinterest,RutaImagen,FechaCreacion,Notas")] Idea idea)
+        public async Task<IActionResult> Create(
+    [Bind("Id,Codigo,Titulo,FraseEspanol,FraseFrances,Descripcion,ColeccionId,TipoProducto,Potencial,Estado,ImagenTerminada,ArchivoPodTerminado,MockupTerminado,PublicadoEtsy,PublicadoPinterest,RutaImagen,FechaCreacion,Notas")]
+    Idea idea)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(idea);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["ColeccionId"] = new SelectList(
+                _context.Colecciones.OrderBy(c => c.Nombre),
+                "Id",
+                "Nombre",
+                idea.ColeccionId);
+
             return View(idea);
         }
-
         // GET: Ideas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -83,10 +93,18 @@ namespace PeonValienteMVC.Controllers
             }
 
             var idea = await _context.Ideas.FindAsync(id);
+
             if (idea == null)
             {
                 return NotFound();
             }
+
+            ViewData["ColeccionId"] = new SelectList(
+                _context.Colecciones.OrderBy(c => c.Nombre),
+                "Id",
+                "Nombre",
+                idea.ColeccionId);
+
             return View(idea);
         }
 
@@ -95,7 +113,7 @@ namespace PeonValienteMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Titulo,FraseEspanol,FraseFrances,Descripcion,Coleccion,TipoProducto,Potencial,Estado,ImagenTerminada,ArchivoPodTerminado,MockupTerminado,PublicadoEtsy,PublicadoPinterest,RutaImagen,FechaCreacion,Notas")] Idea idea)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Titulo,FraseEspanol,FraseFrances,Descripcion,ColeccionId,TipoProducto,Potencial,Estado,ImagenTerminada,ArchivoPodTerminado,MockupTerminado,PublicadoEtsy,PublicadoPinterest,RutaImagen,FechaCreacion,Notas")] Idea idea)
         {
             if (id != idea.Id)
             {
@@ -134,7 +152,8 @@ namespace PeonValienteMVC.Controllers
             }
 
             var idea = await _context.Ideas
-                .FirstOrDefaultAsync(m => m.Id == id);
+             .Include(i => i.Coleccion)
+             .FirstOrDefaultAsync(m => m.Id == id);
             if (idea == null)
             {
                 return NotFound();

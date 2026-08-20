@@ -83,7 +83,7 @@ Le visuel ne doit pas être excessivement photoréaliste ou complexe pour conser
 
 ### Statut
 
-🟡 À tester
+🟡 
 
 ### Concept visuel
 
@@ -404,11 +404,11 @@ Un pion seul face à une explosion tactique derrière lui.
 
 ### ES
 
-**¿Desarrollo tranquilo? No, gracias.**
+**¿Desarrollo tranquilo? No, gracias. ¡Prefiero los gambitos!**
 
 ### FR
 
-**Développement tranquille ? Non merci.**
+**Développement tranquille ? Non merci. Je préfère les gambits !**
 
 ### Statut
 
